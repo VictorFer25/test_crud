@@ -37,9 +37,9 @@
                                 </div>
                                 <div class="col">
                                     <div class="form-group">
-                                        <ValidationProvider rules="required" v-slot="{ errors }">
+                                        <ValidationProvider rules="required|decimal" v-slot="{ errors }">
                                             <label for="">Precio</label>
-                                            <input type="text" class="form-control" placeholder="Ingrese el precio" v-model="price">
+                                            <input type="number" class="form-control" placeholder="Ingrese el precio" v-model="price">
                                             <span id="error" class="text-danger">{{ errors[0] }}</span>
                                         </ValidationProvider>
                                     </div>
@@ -169,10 +169,22 @@
                         //no se puede guardar sin registros
                         return ;
                     }
+                    //estas seguro
 
-                    // let resp = this.$axios
+                    let resp = await axios.post('/productos/save',this.records).then((res)=>res.data);
+
+                    if(!resp.status){
+                        //ocurrio algo
+                        return ;
+                    }
+
+                    //guardado con exito
+
+                    this.resetVars();
+
+                    this.records = [];
                 }catch(err){
-
+                    console.log(err)
                 }
             }
         }

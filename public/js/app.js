@@ -2207,6 +2207,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var resp;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
@@ -2221,19 +2222,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.abrupt("return");
 
               case 3:
-                _context2.next = 7;
-                break;
+                _context2.next = 5;
+                return axios.post('/productos/save', _this2.records).then(function (res) {
+                  return res.data;
+                });
 
               case 5:
-                _context2.prev = 5;
-                _context2.t0 = _context2["catch"](0);
+                resp = _context2.sent;
 
-              case 7:
+                if (resp.status) {
+                  _context2.next = 8;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 8:
+                //guardado con exito
+                _this2.resetVars();
+
+                _this2.records = [];
+                _context2.next = 15;
+                break;
+
+              case 12:
+                _context2.prev = 12;
+                _context2.t0 = _context2["catch"](0);
+                console.log(_context2.t0);
+
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 5]]);
+        }, _callee2, null, [[0, 12]]);
       }))();
     }
   }
@@ -43565,7 +43587,7 @@ var render = function () {
                       { staticClass: "form-group" },
                       [
                         _c("ValidationProvider", {
-                          attrs: { rules: "required" },
+                          attrs: { rules: "required|decimal" },
                           scopedSlots: _vm._u([
                             {
                               key: "default",
@@ -43587,7 +43609,7 @@ var render = function () {
                                     ],
                                     staticClass: "form-control",
                                     attrs: {
-                                      type: "text",
+                                      type: "number",
                                       placeholder: "Ingrese el precio",
                                     },
                                     domProps: { value: _vm.price },
@@ -63761,6 +63783,34 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["extend"])("required", _objectS
 Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["extend"])("numeric", _objectSpread(_objectSpread({}, vee_validate_dist_rules__WEBPACK_IMPORTED_MODULE_2__["numeric"]), {}, {
   message: "EL CAMPO SOLO ACEPTA NUMEROS"
 }));
+Object(vee_validate__WEBPACK_IMPORTED_MODULE_1__["extend"])("decimal", {
+  validate: function validate(value) {
+    var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+        _ref$decimals = _ref.decimals,
+        decimals = _ref$decimals === void 0 ? '*' : _ref$decimals,
+        _ref$separator = _ref.separator,
+        separator = _ref$separator === void 0 ? '.' : _ref$separator;
+
+    if (value === null || value === undefined || value === '') {
+      return {
+        valid: false
+      };
+    }
+
+    if (Number(decimals) === 0) {
+      return {
+        valid: /^-?\d*$/.test(value)
+      };
+    }
+
+    var regexPart = decimals === '*' ? '+' : "{1,".concat(decimals, "}");
+    var regex = new RegExp("^[-+]?\\d*(\\".concat(separator, "\\d").concat(regexPart, ")?([eE]{1}[-]?\\d+)?$"));
+    return {
+      valid: regex.test(value)
+    };
+  },
+  message: 'El {_field_} campos debe contener solo valores decimales'
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

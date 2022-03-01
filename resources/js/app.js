@@ -24,6 +24,27 @@ extend("numeric",{
     ...numeric,
     message: "EL CAMPO SOLO ACEPTA NUMEROS"
 });
+extend("decimal", {
+    validate: (value, { decimals = '*', separator = '.' } = {}) => {
+      if (value === null || value === undefined || value === '') {
+        return {
+          valid: false
+        };
+      }
+      if (Number(decimals) === 0) {
+        return {
+          valid: /^-?\d*$/.test(value),
+        };
+      }
+      const regexPart = decimals === '*' ? '+' : `{1,${decimals}}`;
+      const regex = new RegExp(`^[-+]?\\d*(\\${separator}\\d${regexPart})?([eE]{1}[-]?\\d+)?$`);
+
+      return {
+        valid: regex.test(value),
+      };
+    },
+    message: 'El {_field_} campos debe contener solo valores decimales'
+  })
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue

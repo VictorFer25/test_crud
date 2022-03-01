@@ -19,4 +19,7 @@
 use App\Http\Controllers\ProductoController;
 
 Route::get('/',[ProductoController::class,'create'])->name('producto.create');
+
+Route::post('/productos/save',[ProductoController::class,'save'])->name('producto.save');
+
 Route::get('/lista-productos',[ProductoController::class,'show'])->name('producto.show');
