@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 window.$ = window.jQuery = require('jquery');
+window.Swal = require("sweetalert2");
 
 import { ServerTable,ClientTable, Event} from 'vue-tables-2';
 import { extend, ValidationProvider, ValidationObserver } from 'vee-validate';
@@ -57,6 +58,19 @@ extend("decimal", {
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.use(ClientTable,{ } ,  false ,  'bootstrap4');
 Vue.use(ServerTable,{ } ,  false ,  'bootstrap4');
+
+Vue.prototype.$spinner = function () {
+    Swal.fire({
+        allowEscapeKey: false,
+        allowOutsideClick: false,
+        allowEnterKey: false,
+        timerProgressBar: true,
+        background: '#ffffff00',
+        onBeforeOpen: () => {
+            Swal.showLoading()
+        }
+    });
+};
 
 Vue.component( 'ValidationProvider', ValidationProvider );
 Vue.component( 'ValidationObserver', ValidationObserver );

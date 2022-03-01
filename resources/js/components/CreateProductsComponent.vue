@@ -169,22 +169,57 @@
                         //no se puede guardar sin registros
                         return ;
                     }
-                    //estas seguro
+                    let response = await Swal.fire({
+                        icon: 'question',
+                        title: 'CONFIRMAR',
+                        html: '<p> ¿Desea guardar los productos? </p>',
+                        confirmButtonText: 'ACEPTAR',
+                        showCancelButton: true,
+                        cancelButtonText: 'CANCELAR',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        allowEnterKey: false,
+                        reverseButtons: true
+                    });
 
+                    if(!response.value){ return ;}
+
+
+                    this.$spinner();
                     let resp = await axios.post('/productos/save',this.records).then((res)=>res.data);
-
+                    Swal.close();
                     if(!resp.status){
-                        //ocurrio algo
-                        return ;
+                        return Swal.fire({
+                            icon: 'error',
+                            html: `<p> ${resp.msg} </p>`,
+                            confirmButtonText: 'ACEPTAR',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false,
+                            allowEnterKey: false,
+                        })
                     }
 
-                    //guardado con exito
-
+                    Swal.fire({
+                        icon: 'success',
+                        html: `<p> Los productos se han guardado con éxito </p>`,
+                        confirmButtonText: 'ACEPTAR',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        allowEnterKey: false,
+                    })
                     this.resetVars();
 
                     this.records = [];
                 }catch(err){
-                    console.log(err)
+                    Swal.close();
+                    Swal.fire({
+                        icon:'error',
+                        html:'<p> Lo sentimos, ha ocurrido un error interno </p>',
+                        confirmButtonText: 'ACEPTAR',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        allowEnterKey: false,
+                    })
                 }
             }
         }

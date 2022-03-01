@@ -110,17 +110,57 @@ export default {
         },
         async deleteRow(row){
             try{
-                let resp  = await axios.delete(`/productos/${row.id}/destroy`).then((res)=>res.data);
+                let response = await Swal.fire({
+                    icon: 'question',
+                    title: 'CONFIRMAR',
+                    html: '<p> ¿Desea eliminar el producto? </p>',
+                    confirmButtonText: 'ACEPTAR',
+                    showCancelButton: true,
+                    cancelButtonText: 'CANCELAR',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    allowEnterKey: false,
+                    reverseButtons: true
+                });
 
+                if(!response.value){ return ;}
+
+                this.$spinner();
+
+                let resp  = await axios.delete(`/productos/${row.id}/destroy`).then((res)=>res.data);
+                Swal.close();
                 if(!resp.status){
-                    //ocurrio algo
-                    return ;
+                    return Swal.fire({
+                        icon: 'error',
+                        html: `<p> ${resp.msg} </p>`,
+                        confirmButtonText: 'ACEPTAR',
+                        allowEscapeKey: false,
+                        allowOutsideClick: false,
+                        allowEnterKey: false,
+                    })
                 }
+
+                 Swal.fire({
+                    icon: 'success',
+                    html: `<p> El producto se eliminó con éxito </p>`,
+                    confirmButtonText: 'ACEPTAR',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    allowEnterKey: false,
+                })
 
                 this.$refs.table.refresh();
 
             }catch(err){
-
+                Swal.close();
+                Swal.fire({
+                    icon:'error',
+                    html:'<p> Lo sentimos, ha ocurrido un error interno </p>',
+                    confirmButtonText: 'ACEPTAR',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    allowEnterKey: false,
+                })
             }
         },
 
