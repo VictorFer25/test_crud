@@ -9,7 +9,7 @@ require('./bootstrap');
 window.Vue = require('vue');
 window.$ = window.jQuery = require('jquery');
 
-import { ClientTable, Event} from 'vue-tables-2';
+import { ServerTable,ClientTable, Event} from 'vue-tables-2';
 import { extend, ValidationProvider, ValidationObserver } from 'vee-validate';
 import { required, numeric} from "vee-validate/dist/rules";
 
@@ -56,10 +56,13 @@ extend("decimal", {
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.use(ClientTable,{ } ,  false ,  'bootstrap4');
+Vue.use(ServerTable,{ } ,  false ,  'bootstrap4');
+
 Vue.component( 'ValidationProvider', ValidationProvider );
 Vue.component( 'ValidationObserver', ValidationObserver );
 
 Vue.component('create-products-component', require('./components/CreateProductsComponent.vue').default);
+Vue.component('list-products-component', require('./components/ListProductsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

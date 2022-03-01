@@ -49,9 +49,64 @@ class ProductoController extends Controller
             DB::rollBack();
             return response()->json([
                 'status'=>false,
-                'msg'=> ($e->getCode() == 900) ? $e->getMessage() :$e->getMessage()
+                'msg'=> ($e->getCode() == 900) ? $e->getMessage() : "Lo sentimos, ocurrio un error interno"
             ]);
         }
 
+    }
+
+    public function show(){
+        return view('modulos.lista_producto');
+    }
+
+    public function list(){
+        try{
+            extract(request()->only(['query', 'limit', 'page', 'orderBy', 'ascending', 'byColumn', 'sort','direction']));
+            $params = json_decode($query);
+
+            $productos = DB::table('productos')->select('*');
+
+            if(isset($params->clave)){
+                $productos->where("clave", 'LIKE', "%{$params->clave}%");
+            }
+
+            if(isset($params->categoria)){
+                $productos->where("categoria", 'LIKE', "%{$params->categoria}%");
+            }
+
+            if(isset($params->producto)){
+                $productos->where("producto", 'LIKE', "%{$params->producto}%");
+            }
+
+
+            $result['count'] = $productos->count();
+            $result["data"]  = $productos->orderBy($sort,$direction)->take($limit)->skip($limit * ($page - 1) )->get();
+
+        }catch(Exception $e){
+
+            $result['count'] = 0;
+            $result["data"] = array();
+            $result["error"] = true;
+        }
+
+        return $result;
+    }
+
+    public function destroy($id){
+        try{
+            $producto = Producto::find($id);
+            if(is_null($producto)){
+                throw new Exception('No se encontro el producto seleccionado',900);
+            }
+            $producto->delete();
+
+            return response()->json(['status'=>true]);
+
+        }catch(Exception $e){
+            return response()->json([
+                'status'=>false,
+                'msg'=> ($e->getCode() == 900) ? $e->getMessage() : "Lo sentimos, ocurrio un error interno"
+            ]);
+        }
     }
 }
