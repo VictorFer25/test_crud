@@ -2308,6 +2308,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2425,6 +2430,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           }
         }, _callee, null, [[0, 9]]);
       }))();
+    },
+    downloadExcel: function downloadExcel() {
+      var form = $("<form>").attr({
+        target: "_blank",
+        action: "/productos/download-excel",
+        method: "POST",
+        id: "form1"
+      });
+      var token = $("<input>").attr({
+        name: "_token",
+        type: "text",
+        value: $($("meta[name=csrf-token]")[0]).attr("content")
+      });
+      form.append(token);
+      $(document.body).append(form);
+      form.submit();
+      $("#form1").remove();
     }
   }
 });
@@ -43940,8 +43962,21 @@ var render = function () {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
+            _c("div", { staticClass: "row" }, [
+              _c("div", { staticClass: "col-12 text-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "btn btn-success",
+                    on: { click: _vm.downloadExcel },
+                  },
+                  [_vm._v("Expotar a Excel")]
+                ),
+              ]),
+            ]),
+            _vm._v(" "),
             _vm.show_table
-              ? _c("div", { staticClass: "row" }, [
+              ? _c("div", { staticClass: "row mt-3" }, [
                   _c(
                     "div",
                     { staticClass: "col-12" },

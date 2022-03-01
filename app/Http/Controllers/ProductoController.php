@@ -7,7 +7,8 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class ProductoController extends Controller
 {
     //
@@ -108,5 +109,141 @@ class ProductoController extends Controller
                 'msg'=> ($e->getCode() == 900) ? $e->getMessage() : "Lo sentimos, ocurrio un error interno"
             ]);
         }
+    }
+
+    public function download_excel(){
+        $spreadsheet = new Spreadsheet();
+        date_default_timezone_set('America/Cancun');
+        setlocale(LC_ALL, "es_ES");
+
+        /* ESTILOS */
+        $header = [
+            'font' => [
+                'bold' => true,
+                'size' => 16,
+                'color' => array('rgb' => 'FFFFFF'),
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => '264065',
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                ],
+            ],
+        ];
+
+        $encabezados_tabla  = [
+            'font' => [
+                'bold' => true,
+                'size' => 14
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => [
+                    'argb' => '8db3e2',
+                ],
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                ],
+            ],
+        ];
+        $celdas_texto  = [
+            'font' => [
+                'bold' => true,
+                'size' => 14,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_MEDIUM,
+                ],
+            ],
+        ];
+
+
+
+
+        $spreadsheet->getSheet(0); //inicio el la primera hora
+        $spreadsheet->getSheetByName("LISTA DE PRODUCTOS"); // nombre de la hoja
+        $sheet = $spreadsheet->setActiveSheetIndex(0); // hoja principal
+        $sheet->setTitle("LISTA DE PRODUCTOS");
+
+        $sheet->mergeCells("A2:D4");
+
+
+        $sheet->setCellValue("A2", "LISTA DE PRODUCTOS");
+        $sheet->getColumnDimension('B')->setAutoSize(true);
+        $sheet->getStyle('A2:D4')->applyFromArray($header);
+
+        $cell = 'A';
+
+        $headings = [
+            'CLAVE',
+            'CATEGORIA',
+            'PRODUCTO',
+            'PRECIO'
+        ];
+        foreach ($headings as $head) {
+            //ENCABEZADOS DE LA TABLA
+
+            $sheet->setCellValue("{$cell}7", $head);
+            $sheet->getStyle("{$cell}7")->applyFromArray($encabezados_tabla);
+            $sheet->getColumnDimension($cell)->setAutoSize(true);
+            $cell++;
+        }
+
+        $datos = Producto::orderBy('clave','asc')->get();
+        $row = 8;
+        $celda = 'A';
+        foreach ($datos as $key => $item) {
+
+            $sheet->setCellValue($celda . $row, $item->clave);
+            $sheet->getStyle($celda . $row)->applyFromArray($celdas_texto);
+            $sheet->getColumnDimension($celda)->setAutoSize(true);
+            $celda++;
+
+            $sheet->setCellValue($celda . $row, $item->categoria);
+            $sheet->getStyle($celda . $row)->applyFromArray($celdas_texto);
+            $sheet->getColumnDimension($celda)->setAutoSize(true);
+            $celda++;
+
+
+            $sheet->setCellValue($celda . $row, $item->producto);
+            $sheet->getStyle($celda . $row)->applyFromArray($celdas_texto);
+            $sheet->getColumnDimension($celda)->setAutoSize(true);
+            $celda++;
+
+            $sheet->setCellValue($celda . $row, $item->precio);
+            $sheet->getStyle($celda . $row)->applyFromArray($celdas_texto);
+            $sheet->getColumnDimension($celda)->setAutoSize(true);
+            $celda++;
+
+            $row++;
+            $celda = 'A';
+        }
+
+          /***************************************** */
+        // SALIDA DEL DOCUMENTO AL USUARIO
+        $writer = new Xlsx($spreadsheet);
+        $filename = "LISTA_DE_PRODUCTOS_" . date("Y-m-d") . "_" . date("H:i:s") . ".xlsx";
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $filename);
+        header('Cache-Control: max-age=0');
+        $writer->save('php://output');
+        //=======================================
     }
 }

@@ -6,7 +6,12 @@
                     <div class="card-header">LISTA DE PRODUCTOS</div>
 
                     <div class="card-body">
-                        <div class="row" v-if="show_table">
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <button class="btn btn-success" @click="downloadExcel">Expotar a Excel</button>
+                            </div>
+                        </div>
+                        <div class="row mt-3" v-if="show_table">
                             <div class="col-12">
                                 <v-server-table ref="table" :url="url"  :columns="columns" :options="options">
                                     <template v-slot:acciones="{row}">
@@ -117,6 +122,22 @@ export default {
             }catch(err){
 
             }
+        },
+
+        downloadExcel(){
+            let form = $("<form>").attr({
+                target:"_blank",
+                action:"/productos/download-excel",
+                method:"POST",
+                id:"form1"
+            });
+
+            let token = $("<input>").attr({name:"_token",type:"text",value: $($("meta[name=csrf-token]")[0]).attr("content")});
+
+            form.append( token);
+            $(document.body).append(form);
+            form.submit();
+            $("#form1").remove();
         }
     }
 }
