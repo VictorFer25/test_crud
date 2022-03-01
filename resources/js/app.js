@@ -7,7 +7,23 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+window.$ = window.jQuery = require('jquery');
 
+import { ClientTable, Event} from 'vue-tables-2';
+import { extend, ValidationProvider, ValidationObserver } from 'vee-validate';
+import { required, numeric} from "vee-validate/dist/rules";
+
+
+// VALIDACIONES
+extend("required",{
+    ...required,
+    message: "El CAMPO ES OBLIGATORIO"
+});
+
+extend("numeric",{
+    ...numeric,
+    message: "EL CAMPO SOLO ACEPTA NUMEROS"
+});
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -18,8 +34,11 @@ window.Vue = require('vue');
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+Vue.use(ClientTable,{ } ,  false ,  'bootstrap4');
+Vue.component( 'ValidationProvider', ValidationProvider );
+Vue.component( 'ValidationObserver', ValidationObserver );
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('create-products-component', require('./components/CreateProductsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -30,3 +49,59 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 const app = new Vue({
     el: '#app',
 });
+
+
+
+
+/* ********** ********** ********** */
+/*      SIDEBAR | MENÚ LATERAL      */
+/* ********** ********** ********** */
+
+// AL PRECIONAR EL BOTÓN HAMBURGUESA
+$('#sne-toggle-sidebar').click(function () {
+    showHideSidebar();
+});
+
+// AL PRECIONAR EL TRASFONDO DEL MENÚ
+$('#sne-back-sidebar').click( function () {
+    if ( $('#sne-back-sidebar').attr('sne-sidebar-status') == 'show' ) {
+        showHideSidebar();
+    }
+});
+
+// VALIDACIÓN PARA ACTIVAR O DESACTIVAR EL MENÚ
+function showHideSidebar(params) {
+    if ($('#sne-back-sidebar').is(':visible')) {
+        $('#sne-sidebar').toggleClass('sidebar-left');
+        $('#sne-back-sidebar').toggleClass('sne-siderbar-back-show');
+
+        $('.sne-button-menu').toggleClass('open');
+
+        $('#sne-back-sidebar').attr('sne-sidebar-status', 'hide');
+
+        setTimeout(function(){
+            $('#sne-sidebar').toggleClass('sne-sidebar-hide');
+            $('#sne-back-sidebar').toggleClass('sne-sidebarback-hide');
+        }, 200);
+    } else {
+        $('#sne-sidebar').toggleClass('sne-sidebar-hide');
+        $('#sne-back-sidebar').toggleClass('sne-sidebarback-hide');
+
+        $('.sne-button-menu').toggleClass('open');
+
+        $('#sne-back-sidebar').attr('sne-sidebar-status', 'show');
+
+        setTimeout(function(){
+            $('#sne-sidebar').toggleClass('sidebar-left');
+            $('#sne-back-sidebar').toggleClass('sne-siderbar-back-show');
+        }, 20);
+    }
+}
+
+/*   LINKS | SECCIONES   */
+
+// AGREGAR CLASE selected
+$( '.sidebar > .sidebar-sticky > .nav > .nav-item' ).on( 'click', function(){
+    $( '.nav-item' ).removeClass( 'selected' );
+    $( this ).addClass( 'selected' );
+})

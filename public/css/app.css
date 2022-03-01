@@ -10962,3 +10962,260 @@ a.text-dark:focus {
   }
 }
 
+/* ********** ********** ********** */
+
+/*               HTML               */
+
+/* ********** ********** ********** */
+
+html,
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+/* ********** ********** ********** */
+
+/*               BODY               */
+
+/* ********** ********** ********** */
+
+body {
+  background-color: #e0e7f6;
+}
+
+main {
+  padding-top: 48px;
+}
+
+/* ********** ********** ********** */
+
+/*          NAVBAR | CABECERA       */
+
+/* ********** ********** ********** */
+
+.bg-navbar {
+  background-color: #0099ff;
+}
+
+.navbar button[type=button]:focus,
+.navbar button[type=button]:hover {
+  color: #e1f3ff;
+  border: 1px solid #dee2e6 !important;
+  box-shadow: none;
+}
+
+.navbar .dropdown > .dropdown-menu {
+  top: 45px;
+}
+
+/*   BOTÓN HAMBURGESA | BOTÓN MENÚ   */
+
+.sne-button-menu .line {
+  width: 20px;
+  height: 3px;
+  background-color: #ffffff;
+  display: block;
+  margin: 4px auto;
+  transition: all 0.1s ease-in-out;
+  border-radius: 50px;
+}
+
+.sne-button-menu:hover {
+  cursor: pointer;
+}
+
+.sne-button-menu.open .line:nth-child(1) {
+  width: 13px;
+  margin: 4px auto 2px auto;
+}
+
+.sne-button-menu.open .line:nth-child(3) {
+  width: 13px;
+  margin: 2px auto 4px auto;
+}
+
+.sne-button-menu.open .line:nth-child(1) {
+  transform: translate(-5.9px, 3.5px) rotate(-45deg);
+}
+
+.sne-button-menu.open .line:nth-child(3) {
+  transform: translate(-5.9px, -3.5px) rotate(45deg);
+}
+
+/* ********** ********** ********** */
+
+/*      SIDEBAR | MENÚ LATERAL      */
+
+/* ********** ********** ********** */
+
+/*   MENÚ   */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  z-index: 100;
+  padding: 48px 0 0 0;
+  background-color: #ffffff !important;
+  box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+  width: 300px;
+  left: -300px;
+  transition: all 0.2s linear;
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: 0.5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@supports ((position: -webkit-sticky) or (position: sticky)) {
+  .sidebar-sticky {
+    position: -webkit-sticky;
+    position: sticky;
+  }
+}
+
+.sidebar-left {
+  left: 0 !important;
+  transition: all 0.2s linear;
+}
+
+.d-md-block {
+  display: block !important;
+}
+
+.sne-sidebar-hide {
+  display: none !important;
+}
+
+/*   LINKS | SECCIONES   */
+
+.sidebar > .sidebar-sticky > .nav > .nav-item {
+  margin: 0.2rem 1rem;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item > .nav-link {
+  padding: 0.5rem 1rem 0.5rem 0.5rem;
+  color: #7b7b7b;
+  border-radius: 0.267rem;
+  background-color: #00000000;
+  font-weight: bold;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item.opened > .nav-link {
+  background-color: #0099ff;
+  color: #FFFFFF;
+  font-weight: bold;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item.opened > .nav-link > .sne-button-more-sections .line {
+  background-color: #FFFFFF;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item.opened:hover > .nav-link {
+  color: #FFFFFF;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item.opened:hover > .nav-link > .sne-button-more-sections .line {
+  background-color: #FFFFFF;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item:hover > .nav-link {
+  color: #0099ff;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item:hover > .nav-link > .sne-button-more-sections .line {
+  background-color: #0099ff;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item > .submenu > .nav > .nav-item {
+  margin: 0.5rem 0rem 0.5rem 0.5rem;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item > .submenu > .nav > .nav-item > .nav-link {
+  padding: 0.5rem 0rem 0.5rem 1rem;
+  color: #7b7b7b;
+  border-radius: 0.267rem;
+  background-color: #00000000;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item > .submenu > .nav > .nav-item.opened > .nav-link {
+  background-color: #00000000;
+  color: #0099ff;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item > .submenu > .nav > .nav-item.opened:hover > .nav-link {
+  color: #0099ff;
+}
+
+.sidebar > .sidebar-sticky > .nav > .nav-item > .submenu > .nav > .nav-item:hover > .nav-link {
+  color: #0099ff;
+}
+
+/*   ICONO EXPANDIR SUBMENÚ   */
+
+.sne-button-more-sections .line {
+  width: 10px;
+  height: 2px;
+  background-color: #6c757d;
+  display: block;
+  margin: 4px auto;
+  transition: all 0.1s ease-in-out;
+  border-radius: 50px;
+}
+
+.sne-button-more-sections .line:nth-child(1) {
+  transform: translate(6px, 5px) rotate(-45deg);
+}
+
+.sne-button-more-sections .line:nth-child(2) {
+  transform: translate(0px, -1px) rotate(45deg);
+}
+
+a.nav-link[aria-expanded=true] > .sne-button-more-sections .line:nth-child(1) {
+  transform: translate(6px, 5px) rotate(0deg);
+}
+
+a.nav-link[aria-expanded=true] > .sne-button-more-sections .line:nth-child(2) {
+  transform: translate(0px, -1px) rotate(0deg);
+}
+
+/*   TRASFONDO DEL MENÚ   */
+
+.sne-siderbar-back {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  cursor: pointer;
+  display: block;
+  transition: all 0.2s linear;
+}
+
+.sne-siderbar-back-show {
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.2s linear;
+}
+
+.sne-sidebarback-hide {
+  display: none !important;
+}
+
+/* ********** ********** ********** */
+
+/*            ALINEACIÓN            */
+
+/* ********** ********** ********** */
+
+.sne-align-vertical-middle {
+  vertical-align: middle !important;
+}
+

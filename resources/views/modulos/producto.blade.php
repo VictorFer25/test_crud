@@ -6,6 +6,6 @@
     @include('estructura.menu_lateral')
 
     <div class="mt-5 pt-3">
-        <example-component  />
+        <create-products-component  />
     </div>
 @endsection

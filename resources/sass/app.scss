@@ -6,3 +6,328 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+
+/* ********** ********** ********** */
+/*               HTML               */
+/* ********** ********** ********** */
+// ESTILOS PROPIOS
+html, body{
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  
+  /* ********** ********** ********** */
+  /*               BODY               */
+  /* ********** ********** ********** */
+  
+  // COLOR DE FONDO
+  body {
+    background-color: #e0e7f6;
+  }
+  
+  // SEPARAR EL CONTENIDO DE LA CABECERÁ
+  main {
+    padding-top: 48px;
+  }
+  
+  
+  /* ********** ********** ********** */
+  /*          NAVBAR | CABECERA       */
+  /* ********** ********** ********** */
+  
+  // COLOR DE FONDO
+  .bg-navbar {
+    background-color:#0099ff;
+  }
+  
+  // MARCAR EL BOTÓN
+  .navbar button[type="button"]:focus,
+  .navbar button[type="button"]:hover{
+    color: #e1f3ff;
+    border: 1px solid #dee2e6 !important;
+    box-shadow: none;
+  }
+  
+  // POSICIONAR AL DROPMENÚ MÁS ABAJO
+  .navbar {
+    .dropdown {
+      >.dropdown-menu {
+        top: 45px;
+      }
+    }
+  }
+  
+  /*   BOTÓN HAMBURGESA | BOTÓN MENÚ   */
+  
+  // DISEÑO DEL BOTÓN
+  .sne-button-menu .line{
+    width: 20px;
+    height: 3px;
+    background-color: #ffffff;
+    display: block;
+    margin: 4px auto;
+    -webkit-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    border-radius: 50px;
+  }
+  
+  // CAMBIAR CURSOR
+  .sne-button-menu:hover{
+    cursor: pointer;
+  }
+  
+  // PRIMERA LINEA; CAMBIAR SU TAMAÑO Y MARGEN
+  .sne-button-menu.open .line:nth-child(1){
+    width: 13px;
+    margin: 4px auto 2px auto;
+  }
+  
+  // ÚLTIMA LINEA; CAMBIAR SU TAMAÑO Y MARGEN
+  .sne-button-menu.open .line:nth-child(3){
+    width: 13px;
+    margin: 2px auto 4px auto;
+  }
+  
+  // PRIMERA LINEA; CAMBIAR SU POSICIÓN
+  .sne-button-menu.open .line:nth-child(1){
+    -webkit-transform: translate(-5.9px, 3.5px) rotate(-45deg);
+    -ms-transform: translate(-5.9px, 3.5px) rotate(-45deg);
+    -o-transform: translate(-5.9px, 3.5px) rotate(-45deg);
+    transform: translate(-5.9px, 3.5px) rotate(-45deg);
+  }
+  
+  // ÚLTIMA LINEA; CAMBIAR SU POSICIÓN
+  .sne-button-menu.open .line:nth-child(3){
+    -webkit-transform: translate(-5.9px, -3.5px) rotate(45deg);
+    -ms-transform: translate(-5.9px, -3.5px) rotate(45deg);
+    -o-transform: translate(-5.9px, -3.5px) rotate(45deg);
+    transform: translate(-5.9px, -3.5px) rotate(45deg);
+  }
+  
+  
+  /* ********** ********** ********** */
+  /*      SIDEBAR | MENÚ LATERAL      */
+  /* ********** ********** ********** */
+  
+  /*   MENÚ   */
+  
+  // DISEÑO DE LA ESTRUCTURA
+  .sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    padding: 48px 0 0 0;
+    background-color: #ffffff !important;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, 0.1);
+    width: 300px;
+    left: -300px;
+    transition: all 0.2s linear;
+  }
+  
+  // ESTABLECER TU POSICIÓN Y TAMAÑO DEL MENÚ
+  .sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: calc(100vh - 48px);
+    padding-top: 0.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+  
+  // ESTABLECER SU POSICIÓN PRINCIPAL DEL MENÚ
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
+    .sidebar-sticky {
+      position: -webkit-sticky;
+      position: sticky;
+    }
+  }
+  
+  // MOVER LA ESTRUCTURA
+  .sidebar-left {
+    left: 0 !important;
+    transition: all 0.2s linear;
+  }
+  
+  // VISIBLE AL NAVEGADOR 
+  .d-md-block {
+    display: block !important;
+  }
+  
+  // INVISIBLE AL NAVEGADOR
+  .sne-sidebar-hide {
+    display: none !important;
+  }
+  
+  /*   LINKS | SECCIONES   */
+  .sidebar {
+    >.sidebar-sticky{
+      // PRIMER NIVEL
+      >.nav {
+        // PRIMER NIVEL - ÁREA
+        >.nav-item {
+          margin: 0.2rem 1rem;
+  
+          >.nav-link {
+            padding: 0.5rem 1rem 0.5rem .5rem;
+            color: #7b7b7b;
+            border-radius: .267rem;
+            background-color: #00000000;
+            font-weight: bold;
+          }
+  
+           &.opened {
+            >.nav-link {
+              background-color: #0099ff;
+              color: #FFFFFF;
+              font-weight: bold;
+              >.sne-button-more-sections .line{
+                background-color: #FFFFFF;
+              }
+            }
+  
+            &:hover {
+              >.nav-link {
+                color: #FFFFFF;
+                >.sne-button-more-sections .line{
+                  background-color: #FFFFFF;
+                }
+              }
+            }
+          }
+  
+          &:hover {
+            >.nav-link {
+              color: #0099ff;
+              >.sne-button-more-sections .line{
+                background-color: #0099ff;
+              }
+            }
+          }
+  
+          // SEGUNDO NIVEL
+          >.submenu {
+            >.nav {
+              >.nav-item {
+                margin: 0.5rem 0rem 0.5rem 0.5rem;
+  
+                >.nav-link {
+                  padding: 0.5rem 0rem 0.5rem 1rem;
+                  color: #7b7b7b;
+                  border-radius: .267rem;
+                  background-color: #00000000;
+                }
+  
+                 &.opened {
+                  >.nav-link {
+                    background-color: #00000000;
+                    color: #0099ff;
+                  }
+  
+                  &:hover {
+                    >.nav-link {
+                      color: #0099ff;
+                    }
+                  }
+                }
+  
+                &:hover {
+                  >.nav-link {
+                    color: #0099ff;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  /*   ICONO EXPANDIR SUBMENÚ   */
+  
+  // DISEÑO DEL ICONO
+  .sne-button-more-sections .line{
+    width: 10px;
+    height: 2px;
+    background-color: #6c757d;
+    display: block;
+    margin: 4px auto;
+    -webkit-transition: all 0.1s ease-in-out;
+    -o-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;
+    border-radius: 50px;
+  }
+  
+  // POSICIÓN BASE PRIMERA LINEA
+  .sne-button-more-sections .line:nth-child(1){
+    -webkit-transform: translate(6px, 5px) rotate(-45deg);
+    -ms-transform: translate(6px, 5px) rotate(-45deg);
+    -o-transform: translate(6px, 5px) rotate(-45deg);
+    transform: translate(6px, 5px) rotate(-45deg);
+  }
+  
+  // POSICIÓN BASE SEGUNDA LINEA
+  .sne-button-more-sections .line:nth-child(2){
+    -webkit-transform: translate(0px, -1px) rotate(45deg);
+    -ms-transform: translate(0px, -1px) rotate(45deg);
+    -o-transform: translate(0px, -1px) rotate(45deg);
+    transform: translate(0px, -1px) rotate(45deg);
+  }
+  
+  // NUEVA POSICIÓN BASE PRIMERA LINEA
+  a.nav-link[aria-expanded="true"] > .sne-button-more-sections .line:nth-child(1){
+    -webkit-transform: translate(6px, 5px) rotate(0deg);
+    -ms-transform: translate(6px, 5px) rotate(0deg);
+    -o-transform: translate(6px, 5px) rotate(0deg);
+    transform: translate(6px, 5px) rotate(0deg);
+  }
+  
+  // NUEVA POSICIÓN BASE SEGUNDA LINEA
+  a.nav-link[aria-expanded="true"] > .sne-button-more-sections .line:nth-child(2){
+    -webkit-transform: translate(0px, -1px) rotate(0deg);
+    -ms-transform: translate(0px, -1px) rotate(0deg);
+    -o-transform: translate(0px, -1px) rotate(0deg);
+    transform: translate(0px, -1px) rotate(0deg);
+  }
+  
+  
+  /*   TRASFONDO DEL MENÚ   */
+  
+  // DISEÑO DEL TRASFONDO DEL MENÚ
+  .sne-siderbar-back {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    cursor: pointer;
+    display: block;
+    transition: all 0.2s linear;
+  }
+  
+  // MOSTRANDO EL TRASFONDO DEL MENÚ
+  .sne-siderbar-back-show {
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.2s linear;
+  }
+  
+  // OCULTANDO EL TRASFONDO DEL MENÚ
+  .sne-sidebarback-hide {
+    display: none !important;
+  }
+  
+  
+  /* ********** ********** ********** */
+  /*            ALINEACIÓN            */
+  /* ********** ********** ********** */
+  
+  // ALINEACIÓN VERTICAL
+  .sne-align-vertical-middle{
+    vertical-align: middle !important;
+  }

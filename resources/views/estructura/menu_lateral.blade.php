@@ -11,19 +11,19 @@
         </div>
 
         <ul class="nav flex-column">
-            {{-- <li class="nav-item {{ request()->is('panel-inicio') ? 'opened' : '' }}">
-                <a class="nav-link {{ request()->is('panel-inicio') ? 'active' : '' }}"
-                    href="{{ route('panelInicio.index') }}">
-                    PANEL DE INICIO
+            <li class="nav-item {{ request()->is('/') ? 'opened' : '' }}">
+                <a class="nav-link {{ request()->is('/') ? 'active' : '' }}"
+                    href="{{ route('producto.create') }}">
+                    REGISTRAR PRODUCTOS
                 </a>
             </li>
 
-            <li class="nav-item {{ request()->is('clientes') ? 'opened' : '' }}">
-                <a class="nav-link {{ request()->is('clientes') ? 'active' : '' }}"
-                    href="{{ route('clientes.index') }}">
-                    CLIENTES
+            <li class="nav-item {{ request()->is('lista-productos') ? 'opened' : '' }}">
+                <a class="nav-link {{ request()->is('/lista-productos') ? 'active' : '' }}"
+                    href="{{ route('producto.show') }}">
+                    VER PRODUCTOS
                 </a>
-            </li> --}}
+            </li>
 
         </ul>
     </div>

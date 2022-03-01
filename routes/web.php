@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+
+//     return view('welcome');
+// });
+
+use App\Http\Controllers\ProductoController;
+
+Route::get('/',[ProductoController::class,'create'])->name('producto.create');
+Route::get('/lista-productos',[ProductoController::class,'show'])->name('producto.show');
