@@ -2102,17 +2102,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       //config-table
-      columns: ['clave', 'categoria', 'producto', 'precio', 'acciones'],
+      columns: ['clave', 'producto', 'precio', 'acciones'],
       options: {
         headings: {
           clave: 'Clave',
-          categoria: 'Categoria',
-          producto: 'Producto',
+          producto: 'Descripción',
           precio: 'Precio',
           acciones: ''
         },
         filterByColumn: true,
-        filterable: ['clave', 'categoria', 'producto'],
+        filterable: ['clave', 'producto'],
         texts: {
           count: 'MOSTRANDO DE {from} A {to} DE {count} REGISTROS|SE ENCONTRARÓN {count} REGISTROS | SE ENCONTRÓ UN REGISTRO',
           filter: 'BUSCAR:',
